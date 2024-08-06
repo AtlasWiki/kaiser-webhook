@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate</title>
+    <link href="/styles/tailwind.css" rel="stylesheet">
+</head>
+
+<body class="bg-slate-700 flex justify-center items-center text-center min-h-screen">
+    <nav class="absolute top-0 left-0 p-4">
+        <a href="/"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="black" d="m7.825 13l5.6 5.6L12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2z"/></svg></a>
+    </nav>
+    <div class="flex flex-col gap-4">
+        <h1 class="text-5xl md:text-7xl text-slate-300/90 mt-20 md:mb-5 font-sans">Generate URLs</h1>
+        <div class="flex flex-col gap-10">
+            <div class="flex flex-col items-center gap-5">
+                <div class="flex flex-col w-full">
+                <label class="font-sans font-semibold bg-slate-500 rounded-md text-slate-700" for="actions">Action</label>
+                <select class="p-2 h-12 rounded-md border border-gray-300" name="actions" id="actions" onchange="updateItems()">
+                    <option value="HTMLreq">Request</option>
+                    <option value="HTMLblank">HTML blank</option>
+                    <option value="HTMLplaintext">HTML plaintext</option>
+                    <option value="HTMLb64">HTML base64</option>
+                    <option value="XSSblank">XSS blank</option>
+                    <option value="XSSdata">XSS data exfil</option>
+                    <option value="XSScookie">XSS cookie exfil</option>
+                    <option value="XSSb64">XSS b64-encoded exfil</option>
+                </select>
+                </div>
+                <div class="flex flex-col w-full" id="vcode"> 
+                    <label class="font-sans font-semibold bg-slate-500 rounded-md text-slate-700" for="code">Code</label>
+                    <input class="rounded-md p-1" type="text" name="code" id="code" placeholder="code">
+                </div>
+                <div class="flex flex-col w-full" id="vuname"> 
+                    <label class="font-sans font-semibold bg-slate-500 rounded-md text-slate-700" for="uname">Username</label>
+                    <input class="rounded-md p-1" type="text" name="uname" id="uname" placeholder="username">
+                </div>
+                <div class="flex flex-col w-full" id="vurl"> 
+                    <label class="font-sans font-semibold bg-slate-500 rounded-md text-slate-700" for="uname">Victim URL</label>
+                    <input class="rounded-md p-1" type="url" name="url" id="url" placeholder="url">
+                </div>
+                <div class="flex flex-col w-full" id="vtext"> 
+                    <label class="font-sans font-semibold bg-slate-500 rounded-md text-slate-700" for="uname">Text</label>
+                    <input class="rounded-md p-1" type="url" name="text" id="text" placeholder="Text/Comment (anything goes here)">
+                </div>
+                <button type="submit" class="bg-slate-500 text-slate-800 font-sans font-semibold p-2 h-12 rounded-md border border-gray-800" onclick="createPayload()">SUBMIT</button>
+            </div>
+            <div class="mt-20">
+                <span class="mb-1 block font-sans font-semibold bg-slate-500 rounded-md">OUTPUT</span>
+                <textarea class="w-full px-2 py-1 rounded-md border border-gray-300" id="output"></textarea>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', updateItems())
+
+    function updateItems(){
+        let select_value = document.getElementById('actions').value;
+        let v_url = document.getElementById('vurl');
+        let v_uname = document.getElementById('vuname');
+        let v_text = document.getElementById('vtext');
+        if (select_value === "HTMLreq"){
+            v_url.style.display = 'none';
+            v_uname.style.display = 'none';
+            v_text.style.display = 'flex';
+        } else{
+            if (select_value === "HTMLblank"){
+                v_url.style.display = 'flex';
+                v_uname.style.display = 'flex';
+                v_text.style.display = 'none'
+            } else if (select_value === "XSSblank" || select_value === "XSScookie"){
+                v_url.style.display = 'flex';
+                v_uname.style.display = 'flex';
+                v_text.style.display = 'none'
+            } else{
+                v_url.style.display = 'flex';
+                v_uname.style.display = 'flex';
+                v_text.style.display = 'flex'
+            }
+        }
+    }
+   
+    function createPayload(){
+        let select_value = document.getElementById('actions').value;
+        let username_value = document.getElementById('uname').value;
+        let url_value = document.getElementById('url').value;
+        let custom_text = document.getElementById('text').value;
+        let code_value = document.getElementById('code').value;
+        let output = document.getElementById('output');
+
+        const actions = {
+            HTMLreq: `${document.location.origin}/logger/${code_value}/${custom_text}`,
+            HTMLblank: `${document.location.origin}/?url=${url_value}&by=${username_value}&code=${code_value}`,
+            HTMLplaintext:`${document.location.origin}/?url=${url_value}&by=${username_value}&code=${code_value}&plaintext=${custom_text}`,
+            HTMLb64:`${document.location.origin}/?url=${url_value}&by=${username_value}&code=${code_value}&b64=${custom_text}`,
+            XSSblank: `${document.location.origin}/?url=${url_value}&by=${username_value}&xss=1&code=${code_value}`,
+            XSSdata: `${document.location.origin}/?url=${url_value}&by=${username_value}&code=${code_value}&xss=1&plaintext=${custom_text}`,
+            XSScookie: `${document.location.origin}/?url=${url_value}&by=${username_value}&code=${code_value}&xss=1&cookie=`,
+            XSSb64: `${document.location.origin}/?url=${url_value}&by=${username_value}&code=${code_value}&xss=1&b64=${custom_text}`,
+        }
+
+        switch (select_value){
+            case "HTMLreq":
+                output.value = actions.HTMLreq
+                break;
+            case "HTMLblank":
+                output.value = actions.HTMLblank
+                break;
+            case "HTMLplaintext":
+                output.value = actions.HTMLplaintext
+                break;
+            case "HTMLb64":
+                output.value = actions.HTMLb64
+                break;
+            case "XSSblank":
+                output.value = actions.XSSblank
+                break;
+            case "XSSdata":
+                output.value = actions.XSSdata
+                break;
+            case "XSScookie":
+                output.value = actions.XSScookie
+                break;
+            case "XSSb64":
+                output.value = actions.XSSb64
+                break;
+        }
+    }
+    
+
+</script>
+
+</html>

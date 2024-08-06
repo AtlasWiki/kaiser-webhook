@@ -1,0 +1,27 @@
+{
+  "name": "exploit-server",
+  "version": "1.0.0",
+  "description": "Server to detect blind injections and other attacks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
+    "build:css": "postcss src/styles/tailwind.css -o public/styles/tailwind.css",
+    "watch:css": "postcss src/styles/tailwind.css -o public/styles/tailwind.css --watch"
+  },
+  "author": "mrunoriginal",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.3",
+    "axios-retry": "^4.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.41",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.7"
+  }
+}
