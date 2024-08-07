@@ -7,7 +7,6 @@ https://kaiser-webhook.vercel.app/
 Created by mrunoriginal/AtlasWiki
 
 <br>
-<br>
 
 ## Key Features:
 + **Alert Detection**: Sends (blind) injection alerts to your discord webhook.
@@ -43,3 +42,19 @@ node index.js
 6.) You're all set and may begin playing around with the tool
 
 OPTIONAL STEP: Host the repo remotely to Vercel or any other serverless provider.
+
+<br>
+
+### Warranty
+The creator(s) of this tool provides no warranty or assurance regarding its performance, dependability, or suitability for any specific purpose.
+
+The tool is furnished on an "as is" basis without any form of warranty, whether express or implied, encompassing, but not limited to, implied warranties of merchantability, fitness for a particular purpose, or non-infringement.
+
+The user assumes full responsibility for employing this tool and does so at their own peril. The creator(s) holds no accountability for any loss, damage, or expenses sustained by the user or any third party due to the utilization of this tool, whether in a direct or indirect manner.
+
+Moreover, the creator(s) explicitly renounces any liability or responsibility for the accuracy, substance, or availability of information acquired through the use of this tool, as well as for any harm inflicted by viruses, malware, or other malicious components that may infiltrate the user's system as a result of employing this tool.
+
+By utilizing this tool, the user acknowledges that they have perused and understood this warranty declaration and agree to undertake all risks linked to its utilization.
+  
+### License
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/AtlasWiki/meowpi/blob/main/LICENSE) for details.
