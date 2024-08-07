@@ -10,4 +10,36 @@ Created by mrunoriginal/AtlasWiki
 <br>
 
 ## Key Features:
-+ **Easy link generation**: remember the parameters can be tricky, but fortunately a link generator is builtin to this tool.
++ **Alert Detection**: Sends (blind) injection alerts to your discord webhook.
++ **Logging**: Comes with request logging.
++ **Location Tracking**: Tracks the location of where the payload was fired.
++ **Payload Tracking**: Tracks the payload that was fired.
++ **Easy Link Generation**: Comes with a link generator to create the link for the payload.
++ **24/7 Online Detection**: Supports hosting with virtualization and serverless functions like vercel.
++ **Link Security**: Creating your own code/password as it's required so that your webhook does not get spammed.
++ **Separated Webhooks**: There is a separate webhook for logging requests and detecting injection alerts.
++  **Clean UI**: Comes with a clean and simple to use UI.
+
+## Installation and Setup:
+
+1.) Clone the repo:
+```
+git clone https://github.com/AtlasWiki/kaiser-webhook.git
+```
+
+2.) Go inside the directory and install the packages:
+```
+npm i
+```
+
+3.) Generate your discord webhook and edit the .env file with your own values
+
+4.) Run the index.js file (located in /src/)
+```
+node index.js
+```
+5.) Navigate to http://localhost:4000/ and read the instructions
+
+6.) You're all set and may begin playing around with the tool
+
+OPTIONAL STEP: Host the repo remotely to Vercel or any other serverless provider.
