@@ -49,6 +49,7 @@
             <div class="mt-20">
                 <span class="mb-1 block font-sans font-semibold bg-slate-500 rounded-md">OUTPUT</span>
                 <textarea class="w-full px-2 py-1 rounded-md border border-gray-300" id="output"></textarea>
+                <button type="submit" class="bg-slate-500 text-slate-800 font-sans font-semibold p-2 h-12 rounded-md border border-gray-800 w-full" id="copy" onclick="copyToClip()">Copy to clipboard</button>
             </div>
         </div>
     </div>
@@ -127,6 +128,19 @@
                 output.value = actions.XSSb64
                 break;
         }
+    }
+
+    function copyToClip(){
+        let output = document.getElementById('output');
+        let copy = document.getElementById('copy');
+        output.select();
+        navigator.clipboard.writeText(output.value)
+        copy.innerHTML = 'COPIED'
+        copy.style.backgroundColor = 'green'
+        setTimeout(() => {
+            copy.innerHTML = 'Copy to clipboard'
+            copy.style.backgroundColor = ''
+        }, 1000)
     }
     
 
