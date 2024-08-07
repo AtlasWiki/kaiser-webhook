@@ -57,4 +57,4 @@ Moreover, the creator(s) explicitly renounces any liability or responsibility fo
 By utilizing this tool, the user acknowledges that they have perused and understood this warranty declaration and agree to undertake all risks linked to its utilization.
   
 ### License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/AtlasWiki/meowpi/blob/main/LICENSE) for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/AtlasWiki/kaiser-webhook/blob/main/LICENSE) for details.
