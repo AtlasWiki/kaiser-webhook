@@ -69,7 +69,7 @@ app.get('/', (req, res) => {
                 discord_message_builder.action = `**Action**:   Data Exfiltration\n`
             }
     
-            if (!req.headers["xsend-xss-payload"] || !xss){
+            if (!req.headers["xsend-xss-payload"] && !xss){
                 discord_message_builder.title = ">>> # Possible HTML / Dangling Markup Injection\n"
             }
     
