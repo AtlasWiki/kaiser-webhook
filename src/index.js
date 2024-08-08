@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
             const by = req.query.by;
             const xss = req.query.xss;
             const origin = req.headers['origin'];
+            
             // pre-build / data formatter
             // stores fixed/dynamic values
             const report = {
@@ -41,8 +42,6 @@ app.get('/', (req, res) => {
             if (req.headers['xsend-xss-payload']){
                 const payload =  req.headers['xsend-xss-payload']
                 report.payload = payload
-                // const by = req.headers["xsend-user-kaiser"]
-                // report.by = by
             }
     
             // discord message format

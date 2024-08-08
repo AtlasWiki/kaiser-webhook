@@ -19,6 +19,7 @@
                 <label class="font-sans font-semibold bg-slate-500 rounded-md text-slate-700" for="actions">Action</label>
                 <select class="p-2 h-12 rounded-md border border-gray-300" name="actions" id="actions" onchange="updateItems()">
                     <option value="HTMLreq">Request</option>
+                    <option value="HTMLreq2js">JS file</option>
                     <option value="HTMLblank">HTML blank</option>
                     <option value="HTMLplaintext">HTML plaintext</option>
                     <option value="HTMLb64">HTML base64</option>
@@ -62,6 +63,10 @@
         let v_url = document.getElementById('vurl');
         let v_uname = document.getElementById('vuname');
         let v_text = document.getElementById('vtext');
+        let v_code = document.getElementById('vcode');
+
+        v_code.style.display = 'flex';
+        
         if (select_value === "HTMLreq"){
             v_url.style.display = 'none';
             v_uname.style.display = 'none';
@@ -75,7 +80,13 @@
                 v_url.style.display = 'flex';
                 v_uname.style.display = 'flex';
                 v_text.style.display = 'none'
-            } else{
+            } else if (select_value === "HTMLreq2js"){
+                v_url.style.display = 'none';
+                v_uname.style.display = 'none';
+                v_text.style.display = 'none';
+                v_code.style.display = 'none';
+            } 
+            else{
                 v_url.style.display = 'flex';
                 v_uname.style.display = 'flex';
                 v_text.style.display = 'flex'
@@ -93,6 +104,7 @@
 
         const actions = {
             HTMLreq: `${document.location.origin}/logger/${code_value}/${custom_text}`,
+            HTMLreq2js: `${document.location.origin}/exploit.js`,
             HTMLblank: `${document.location.origin}/?url=${url_value}&by=${username_value}&code=${code_value}`,
             HTMLplaintext:`${document.location.origin}/?url=${url_value}&by=${username_value}&code=${code_value}&plaintext=${custom_text}`,
             HTMLb64:`${document.location.origin}/?url=${url_value}&by=${username_value}&code=${code_value}&b64=${custom_text}`,
@@ -105,6 +117,9 @@
         switch (select_value){
             case "HTMLreq":
                 output.value = actions.HTMLreq
+                break;
+            case "HTMLreq2js":
+                output.value = actions.HTMLreq2js
                 break;
             case "HTMLblank":
                 output.value = actions.HTMLblank

