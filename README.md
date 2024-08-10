@@ -49,7 +49,7 @@ node index.js
 
 <br>
 
-**OPTIONAL STEP**: Host the repo remotely to Vercel or any other serverless provider.
+**RECOMMENDED STEP**: Host the repo remotely to Vercel or any other serverless provider.
 
 **NOTE**: If you choose Vercel like how I did for the demo web app, then no need to edit the .env file from the repo. You would just need to deploy your own fork of this repo and edit the .env values from Vercel.
 
