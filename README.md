@@ -26,6 +26,7 @@ https://github.com/user-attachments/assets/647aaffd-0c54-4518-9549-c3de6f3a4a82
 
 ## Installation and Setup:
 
+### Without Vercel:
 1.) Clone the repo:
 ```
 git clone https://github.com/AtlasWiki/kaiser-webhook.git
@@ -38,7 +39,7 @@ npm i
 
 3.) Generate your discord webhook and edit the .env file with your own values
 
-4.) Run the index.js file (located in /src/)
+4.) Run the index.js file
 ```
 node index.js
 ```
@@ -46,7 +47,21 @@ node index.js
 
 6.) You're all set and may begin playing around with the tool
 
-OPTIONAL STEP: Host the repo remotely to Vercel or any other serverless provider.
+<br>
+
+**OPTIONAL STEP**: Host the repo remotely to Vercel or any other serverless provider.
+
+**NOTE**: If you choose Vercel like how I did for the demo web app, then no need to edit the .env file from the repo. You would just need to deploy your own fork of this repo and edit the .env values from Vercel.
+
+<br>
+
+### With Vercel:
+
+1.) Fork the repo.
+
+2.) Import the github repo as a project to Vercel.
+
+3.) Add your own .env variables in the Vercel deployment process.
 
 <br>
 
