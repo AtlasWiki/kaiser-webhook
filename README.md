@@ -61,7 +61,7 @@ node index.js
 
 2.) Import the github repo as a project to Vercel.
 
-3.) Add your own .env variables in the Vercel deployment process.
+3.) Add your own .env variables in the Vercel deployment process (**do not edit .env file of your forked repo**).
 
 <br>
 
