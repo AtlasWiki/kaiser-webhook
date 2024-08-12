@@ -8,7 +8,7 @@ const axiosRetry = require('axios-retry').default;
 axiosRetry(axios, { retries: 3 });
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
-port = 4000
+const port = 4000
 
 const corsOptions = {
     origin: '*',
