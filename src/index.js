@@ -90,21 +90,6 @@ app.get('/', (req, res) => {
     }
 })
 
-// For testing your webhook
-app.all('/dev/webhook/test', (req, res) => {
-    res.send('')
-    axios.post(process.env.logsWebhook,{
-        content: 'testing123'
-    }, {
-        timeout: 5000
-    })
-    .then(response => {
-        console.log('Test GET Success:', response.data);
-    })
-    .catch(error => {
-        console.error('Test GET Error:', error);
-    });
-})
 
 // Displays instructions on how to use the tool
 app.get('/instructions', (req, res) => {
